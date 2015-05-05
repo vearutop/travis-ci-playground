@@ -20,7 +20,6 @@ before_script:
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS test1;" -uroot; fi
   - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - cp -rf conf/Main.travis.php conf/Main.php
   - nohup node travis/http-mirror.js &
   - nohup php -S localhost:8000 travis/http-server.php &
 
