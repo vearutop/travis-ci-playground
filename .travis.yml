@@ -21,7 +21,7 @@ before_script:
   - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - nohup node travis/http-mirror.js &
-  - nohup php -S localhost:8000 travis/http-server.php &
+  - php -S localhost:8000 travis/http-server.php
 
 script:
   - phpunit --configuration phpunit.xml
