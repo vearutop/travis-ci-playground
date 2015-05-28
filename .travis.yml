@@ -23,7 +23,7 @@ before_script:
   #- echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - nohup node travis/http-mirror.js &
   - nohup ~/.phpenv/versions/5.4/bin/php -S localhost:8000 travis/http-server.php &
-  - travis/build-newrelic.sh
+  #- travis/build-newrelic.sh
 
 script:
   - phpunit --configuration phpunit.xml
