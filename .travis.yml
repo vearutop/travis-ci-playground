@@ -8,8 +8,8 @@ php:
   - hhvm
 #  - hhvm-nightly
 
-env:
-  - DB=mysql
+addons:
+  postgresql: "9.3"
 
 services:
   - memcached # will start memcached
@@ -18,7 +18,8 @@ services:
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS test1;" -uroot; fi
+  - mysql -e "create database IF NOT EXISTS test1;" -uroot
+  - psql -c 'create database travis_ci_test;' -U postgres
   - if [[$(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm"]]; then echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   #- echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - nohup node travis/http-mirror.js &
