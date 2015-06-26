@@ -20,7 +20,7 @@ services:
 before_script:
   - mysql -e "create database IF NOT EXISTS test1;" -uroot
   - psql -c 'create database travis_ci_test;' -U postgres
-  - if [[$(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm"]]; then echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - if [[$(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm"]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   #- echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - nohup node travis/http-mirror.js &
   - nohup ~/.phpenv/versions/5.4/bin/php -S localhost:8000 travis/http-server.php &
