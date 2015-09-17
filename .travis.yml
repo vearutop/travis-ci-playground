@@ -1,30 +1,21 @@
 language: php
+
 php:
-  - nightly
-  - 5.6
-  - 5.5
-  - 5.4
   - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
   - hhvm
-#  - hhvm-nightly
 
-addons:
-  postgresql: "9.3"
+sudo: false
 
-services:
-  - memcached # will start memcached
-  - mongodb
+before_install:
+  - composer self-update
 
-
-# execute any number of scripts before the test run, custom env's are available as variables
-before_script:
-  - mysql -e "create database IF NOT EXISTS test1;" -uroot
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - if [[$(phpenv version-name) != "nightly" && $(phpenv version-name) != "hhvm"]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-  #- echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - nohup node travis/http-mirror.js &
-  - nohup ~/.phpenv/versions/5.4/bin/php -S localhost:8000 travis/http-server.php &
-  #- travis/build-newrelic.sh
+install:
+  - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - phpunit --configuration phpunit.xml
+  - ./vendor/bin/phpunit tests
+

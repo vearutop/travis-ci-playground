@@ -1,9 +1,8 @@
 <?php
 
 class SampleTest extends PHPUnit_Framework_TestCase {
-    public function testOne() {
-        var_dump(phpversion());
-        var_dump(file_get_contents('http://localhost:8000/'));
-        var_dump(file_get_contents('http://localhost:1337/'));
+    public function testSort() {
+        $a = array(10 => 0, 1, 2, 1, 3, 0, 1, 1, 0);
+        var_dump($a);
     }
 }
